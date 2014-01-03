@@ -1,0 +1,70 @@
+$def with (data2, start, title, subtitle, yaxisTitle)
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Highcharts Example</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+$$(function () {
+        $$('#container').highcharts({
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: '$title'
+            },
+            subtitle: {
+                text: '$subtitle'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: '$yaxisTitle'
+                },
+                min: 0,
+                minorGridLineWidth: 0,
+                gridLineWidth: 0,
+                alternateGridColor: null,
+            },
+            tooltip: {
+                valueSuffix: ' '
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 2,
+                    states: {
+                        hover: {
+                            lineWidth: 3
+                        }
+                    },
+                    marker: {
+                        enabled: false
+                    },
+                    pointInterval: 60 * 1000, // one minute
+                    pointStart: $start
+                }
+            },
+            series: [{
+                name: 'Sensor',
+                data: [
+                    $data2
+                ]
+            }],
+            navigation: {
+                menuItemStyle: {
+                    fontSize: '10px'
+                }
+            }
+        });
+    });
+
+    </script>
+  </head>
+  <body>
+    <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+  </body>
+</html>
