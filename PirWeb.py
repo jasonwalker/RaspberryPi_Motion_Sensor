@@ -3,6 +3,7 @@ import web,sys,os,time,traceback,base64
 from Data import DataClass
 from Config import TITLE, SUBTITLE, YAXISTITLE, USERNAME, PASSWORD, PORT
 urls = ('/', 'index',
+        '/js/(.*)', 'static',
         '/favicon.ico','favicon')
 mainDir = os.path.dirname(os.path.realpath(__file__))
 render = web.template.render(os.path.join(mainDir, 'templates'))
@@ -37,6 +38,16 @@ class index:
         data, startTime = dataClass.getDataAndStartTime()
         v = render.index(data,startTime,TITLE, SUBTITLE, YAXISTITLE)
         return v
+
+class static:
+    def GET(self, path):
+        try:
+            print os.path.join(mainDir, 'js', path)
+            with open(os.path.join(mainDir, 'js', path), 'r') as f:
+                return f.read()
+        except Exception, msg:
+            web.ctx.status = '404 Not Found'
+            return 
 
 class MotionApp(web.application):
     def run(self, port=PORT, *middleware):

@@ -20,6 +20,14 @@ sudo mkdir /usr/local/bin/PIR
 ```
 sudo cp -r * /usr/local/bin/PIR
 ```
+* Create a subdirectory named "js" in /usr/local/bin/PIR to hold Javascript libraries
+```
+sudo mkdir /usr/local/bin/PIR/js
+```
+* Pull down the two Javascript libraries we use, Jquery and Highcharts
+```
+sudo wget -P /usr/local/bin/PIR/js http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js http://code.highcharts.com/highcharts.js
+```
  * make main file executable
 ```
 sudo chmod +x /usr/local/bin/PIR/PirWeb.py
