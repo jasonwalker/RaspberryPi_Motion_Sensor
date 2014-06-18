@@ -1,22 +1,34 @@
 import web,sys,time,traceback
 import RPi.GPIO as GPIO
 from threading import Thread,current_thread
-from copy import copy
 from collections import deque
 from Config import DATAPIN
+
+MOVEMENTDATA = deque(maxlen=1440)
 
 def format(t):
     return 'Date.UTC(%i, %i, %i, %i, %i, %i)' % \
       (t.tm_year,t.tm_mon-1,t.tm_mday,t.tm_hour, t.tm_min,t.tm_sec)
     
-class DataClass(Thread):
+def startCollectingData():
+    data = __DataClass()  
+    data.start()  
+    
+def getDataAndStartTime():
+    dataString = ','.join(map(str, MOVEMENTDATA))
+    #subtract minutes from current time
+    current = time.time() - (60 * len(MOVEMENTDATA)) 
+    return dataString, format(time.localtime(current))    
+    
+class __DataClass(Thread):
+    """Takes a list-type object and populates it with data from RPi
+    IO port"""
     def __init__(self):
         Thread.__init__(self)
         try:
             GPIO.setmode(GPIO.BOARD)
             GPIO.setup(DATAPIN, GPIO.IN)
-            self.MOVEMENTDATA = deque(maxlen=1440)
-            self.start()
+            self.daemon = True
         except Exception, msg:
             print 'exception thrown',msg
             GPIO.cleanup()
@@ -29,7 +41,7 @@ class DataClass(Thread):
                 curTime = time.localtime()
                 #if seconds val just flipped from high to low number; a new minute started
                 if seconds > curTime.tm_sec:
-                    self.MOVEMENTDATA.append(motion)
+                    MOVEMENTDATA.append(motion)
                     motion = 0
                 motion += GPIO.input(DATAPIN)
                 seconds = curTime.tm_sec
@@ -39,9 +51,4 @@ class DataClass(Thread):
             print 'cleaning up'
         finally:
             GPIO.cleanup()
-           
-    def getDataAndStartTime(self):
-        d2 = copy(self.MOVEMENTDATA)
-        dataString = ','.join(map(str, d2))
-        current = time.time() - (60 * len(d2)) #subtract minutes from current time
-        return dataString, format(time.localtime(current))
+

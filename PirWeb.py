@@ -1,13 +1,14 @@
 #!/usr/bin/python
 import web,sys,os,time,traceback,base64
-from Data import DataClass
+from Data import getDataAndStartTime, startCollectingData
 from Config import TITLE, SUBTITLE, YAXISTITLE, USERNAME, PASSWORD, PORT
 urls = ('/', 'index',
         '/js/(.*)', 'static',
         '/favicon.ico','favicon')
 mainDir = os.path.dirname(os.path.realpath(__file__))
 render = web.template.render(os.path.join(mainDir, 'templates'))
-dataClass = DataClass()
+
+
 with open(os.path.join(mainDir, 'favicon.ico'),'rb') as iconFile:
     icon = iconFile.read()
 
@@ -35,14 +36,13 @@ class index:
     def GET(self):
         if not authorized():
             return
-        data, startTime = dataClass.getDataAndStartTime()
+        data, startTime = getDataAndStartTime()
         v = render.index(data,startTime,TITLE, SUBTITLE, YAXISTITLE)
         return v
 
 class static:
     def GET(self, path):
         try:
-            print os.path.join(mainDir, 'js', path)
             with open(os.path.join(mainDir, 'js', path), 'r') as f:
                 return f.read()
         except Exception, msg:
@@ -55,5 +55,6 @@ class MotionApp(web.application):
         return web.httpserver.runsimple(func, ('0.0.0.0', port))
         
 if __name__ == "__main__":
+    startCollectingData()
     app = MotionApp(urls, globals())
     app.run()
