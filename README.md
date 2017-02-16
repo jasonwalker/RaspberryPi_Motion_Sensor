@@ -64,3 +64,16 @@ sudo /etc/init.d/PIRMotion.sh restart
  * username and password (default "username" and "password")
  * the amount of rolling hours displayed on the chart (default: 24)
  * a few chart titles
+
+## WIFI dropping out
+Wifi has been shutting down after a few weeks for me.  To correct this:
+ * Create and edit a new file in /etc/modprobe.d/8192cu.conf
+ * sudo vim /etc/modprobe.d/8192cu.conf
+ * paste the following lines in
+```
+# Disable power saving
+options 8192cu rtw_power_mgnt=0 rtw_enusbss=1 rtw_ips_mode=1
+```
+ * reboot
+ 
+[this fix is from Adafruit](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/test-and-configure#fixing-wifi-dropout-issues))
