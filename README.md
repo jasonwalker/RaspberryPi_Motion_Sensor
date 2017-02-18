@@ -20,12 +20,7 @@ sudo mkdir /usr/local/bin/PIR
 ```
 sudo cp -r * /usr/local/bin/PIR
 ```
-* Create a subdirectory named "static" with another "js" in /usr/local/bin/PIR to hold Javascript libraries
-```
-sudo mkdir /usr/local/bin/PIR/static
-sudo mkdir /usr/local/bin/PIR/static/js
-```
-* Pull down the two Javascript libraries we use, Jquery and Highcharts
+* Pull down the two Javascript libraries we use, Jquery and Highcharts and copy them into the 'static/js' directory
 ```
 sudo wget -P /usr/local/bin/PIR/static/js http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js http://code.highcharts.com/highcharts.js
 ```
