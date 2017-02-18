@@ -61,7 +61,7 @@ You can change various features in the file /usr/local/bin/PIR/Config.py.
  * username and password (default "username" and "password")
  * the amount of rolling hours displayed on the chart (default: 24)
  * a few chart titles
- * certificate and private key if using HTTPS
+ * certificate and private key if using HTTPS (must uncomment marked section in PirWeb.py)
  
  After changing, a restart is necessary
 ```
@@ -79,4 +79,4 @@ options 8192cu rtw_power_mgnt=0 rtw_enusbss=1 rtw_ips_mode=1
 ```
  * reboot
  
-[this fix is from Adafruit](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/test-and-configure#fixing-wifi-dropout-issues))
+[this fix is from Adafruit](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/test-and-configure#fixing-wifi-dropout-issues)
