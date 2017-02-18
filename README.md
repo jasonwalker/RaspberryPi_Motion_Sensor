@@ -20,13 +20,14 @@ sudo mkdir /usr/local/bin/PIR
 ```
 sudo cp -r * /usr/local/bin/PIR
 ```
-* Create a subdirectory named "js" in /usr/local/bin/PIR to hold Javascript libraries
+* Create a subdirectory named "static" with another "js" in /usr/local/bin/PIR to hold Javascript libraries
 ```
-sudo mkdir /usr/local/bin/PIR/js
+sudo mkdir /usr/local/bin/PIR/static
+sudo mkdir /usr/local/bin/PIR/static/js
 ```
 * Pull down the two Javascript libraries we use, Jquery and Highcharts
 ```
-sudo wget -P /usr/local/bin/PIR/js http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js http://code.highcharts.com/highcharts.js
+sudo wget -P /usr/local/bin/PIR/static/js http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js http://code.highcharts.com/highcharts.js
 ```
  * make main file executable
 ```
@@ -54,16 +55,19 @@ Open a browser and go to your Raspberry Pi's IP address.  It will take a minute 
 
 ## Changing the configuration
 You can change various features in the file /usr/local/bin/PIR/Config.py.
-After changing, a restart is necessary
-```
-sudo /etc/init.d/PIRMotion.sh restart
-```
+
 
  * Which IO pin to plug into (default is 22)
  * port to run on (default 80)
  * username and password (default "username" and "password")
  * the amount of rolling hours displayed on the chart (default: 24)
  * a few chart titles
+ * certificate and private key if using HTTPS
+ 
+ After changing, a restart is necessary
+```
+sudo /etc/init.d/PIRMotion.sh restart
+```
 
 ## WIFI dropping out
 Wifi has been shutting down after a few weeks for me.  To correct this:

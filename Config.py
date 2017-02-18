@@ -6,3 +6,5 @@ USERNAME = "username"
 PASSWORD = "password"
 PORT = 80
 MAX_WINDOW_IN_HOURS = 24
+CERTPATH = "/usr/local/bin/PIR/selfsigned.crt"
+KEYPATH = "/usr/local/bin/PIR/private.key"

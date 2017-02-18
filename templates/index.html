@@ -1,29 +1,28 @@
-$def with (data2, start, title, subtitle, yaxisTitle)
 <!DOCTYPE HTML>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Motion Detector</title>
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/highcharts.js"></script>
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/highcharts.js"></script>
     <script type="text/javascript">
-$$(function () {
-        $$('#container').highcharts({
+$(function () {
+        $('#container').highcharts({
             chart: {
                 type: 'spline'
             },
             title: {
-                text: '$title'
+                text: '{{title}}'
             },
             subtitle: {
-                text: '$subtitle'
+                text: '{{subtitle}}'
             },
             xAxis: {
                 type: 'datetime'
             },
             yAxis: {
                 title: {
-                    text: '$yaxisTitle'
+                    text: '{{yaxisTitle}}'
                 },
                 min: 0,
                 minorGridLineWidth: 0,
@@ -45,13 +44,13 @@ $$(function () {
                         enabled: false
                     },
                     pointInterval: 60 * 1000, // one minute
-                    pointStart: $start
+                    pointStart: {{start}}
                 }
             },
             series: [{
                 name: 'Sensor',
                 data: [
-                    $data2
+                    {{data2}}
                 ]
             }],
             navigation: {
@@ -65,6 +64,9 @@ $$(function () {
     </script>
   </head>
   <body>
+    {% if cameraAvailable is True %}
+    <button class="btn btn-success" onclick=" window.open('/current','_blank')">Current View</button>
+    {% end %}  
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
   </body>
 </html>
